@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>מילואים - הזימונים שלי</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --green: #4eb84a;
+      --green-dark: #3da039;
+      --red: #d63b3b;
+      --yellow: #f5c842;
+      --yellow-dark: #e6b82a;
+      --white: #ffffff;
+      --text-dark: #1c1c1c;
+      --text-mid: #444;
+      --text-light: #666;
+      --card-shadow: 0 2px 14px rgba(0,0,0,0.12);
+      --font: 'Arial', 'Helvetica', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      background: #f4f4f4;
+      font-family: var(--font);
+      color: var(--text-dark);
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page {
+      max-width: 430px;
+      margin: 0 auto;
+      background: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── TOP NAV ── */
+    .topnav {
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px 8px;
+      border-bottom: 1px solid #e8e8e8;
+      position: relative;
+      z-index: 10;
+    }
+
+    .topnav__right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topnav__left {
+      display: flex;
+      align-items: center;
+    }
+
+    .topnav__center {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    /* profile icon */
+    .icon-profile {
+      width: 34px;
+      height: 34px;
+      border: 2px solid #ccc;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .icon-profile svg { width: 18px; height: 18px; fill: #888; }
+
+    /* bell + badge wrapper */
+    .bell-wrap {
+      position: relative;
+      width: 38px;
+      height: 38px;
+      background: #fff8dc;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .bell-wrap svg { width: 20px; height: 20px; fill: #d4a800; }
+    .bell-badge {
+      position: absolute;
+      top: 1px;
+      right: 1px;
+      background: #e53935;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid #fff;
+    }
+
+    /* notification tooltip */
+    .notif-tooltip {
+      position: absolute;
+      top: 56px;
+      right: 50px;
+      background: #fff3b0;
+      border: 1.5px solid #e8cc40;
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+      white-space: nowrap;
+      z-index: 20;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    }
+    .notif-tooltip::before {
+      content: '';
+      position: absolute;
+      top: -9px;
+      right: 16px;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 9px solid #e8cc40;
+    }
+    .notif-tooltip::after {
+      content: '';
+      position: absolute;
+      top: -7px;
+      right: 17px;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-bottom: 8px solid #fff3b0;
+    }
+
+    /* IDF logo */
+    .idf-logo {
+      width: 36px;
+      height: 36px;
+    }
+
+    /* hamburger */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2.5px;
+      background: #333;
+      border-radius: 2px;
+    }
+
+    /* ── GREEN HERO ── */
+    .hero {
+      background: var(--green);
+      padding: 20px 16px 28px;
+      position: relative;
+    }
+
+    .hero__header {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .hero__title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--white);
+      text-align: right;
+    }
+
+    .hero__dots {
+      display: flex;
+      gap: 5px;
+      justify-content: flex-end;
+      margin-bottom: 16px;
+    }
+    .hero__dots span {
+      width: 22px;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.4);
+    }
+    .hero__dots span.active {
+      background: var(--white);
+    }
+
+    /* ── APPOINTMENT CARD ── */
+    .card {
+      background: var(--white);
+      border-radius: 18px;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+    }
+
+    .card__top {
+      padding: 14px 14px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .card__status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card__menu-dots {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      cursor: pointer;
+      padding: 2px 4px;
+    }
+    .card__menu-dots span {
+      display: block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .card__status-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .card__check {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card__check svg { width: 10px; height: 10px; stroke: var(--green); fill: none; stroke-width: 2.5; }
+
+    .card__prev-btn {
+      background: var(--red);
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font);
+    }
+
+    .card__body {
+      padding: 12px 16px 14px;
+    }
+
+    .card__main-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text-dark);
+      text-align: right;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .card__main-title .separator {
+      color: var(--green);
+      margin: 0 6px;
+      font-weight: 400;
+    }
+
+    .card__info-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-bottom: 8px;
+      color: var(--text-mid);
+      font-size: 14px;
+    }
+    .card__info-row svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .card__actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid #f0f0f0;
+      margin-top: 4px;
+    }
+
+    .card__action-btn {
+      padding: 14px 8px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font);
+      color: var(--text-dark);
+    }
+    .card__action-btn--yellow {
+      background: var(--yellow);
+    }
+    .card__action-btn--white {
+      background: var(--white);
+      border-right: 1px solid #f0f0f0;
+    }
+
+    /* ── LOWER SECTION ── */
+    .section {
+      background: var(--white);
+      padding: 22px 16px 0;
+      flex: 1;
+    }
+
+    .section__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .section__title-wrap {
+      text-align: right;
+    }
+
+    .section__title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .section__underline {
+      width: 40px;
+      height: 4px;
+      background: var(--yellow);
+      border-radius: 2px;
+      margin-top: 4px;
+      margin-right: auto;
+      margin-left: 0;
+    }
+
+    .section__new-btn {
+      background: var(--green);
+      color: var(--white);
+      border: none;
+      border-radius: 24px;
+      padding: 10px 18px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font);
+    }
+
+    .section__item-meta {
+      text-align: left;
+      font-size: 13px;
+      color: var(--text-light);
+      margin-top: 18px;
+      margin-bottom: 4px;
+    }
+    .section__item-meta span {
+      font-weight: 600;
+      color: var(--text-mid);
+    }
+
+    .section__item-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-dark);
+      text-align: right;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #efefef;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- TOP NAV -->
+    <nav class="topnav">
+      <div class="topnav__right">
+        <div class="icon-profile">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+          </svg>
+        </div>
+
+        <!-- Bell with tooltip -->
+        <div style="position:relative;">
+          <div class="bell-wrap">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V11c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+            </svg>
+            <div class="bell-badge">1</div>
+          </div>
+          <div class="notif-tooltip">יש לך הודעות חדשות</div>
+        </div>
+      </div>
+
+      <div class="topnav__center">
+        <span>בוקר טוב ידידיה</span>
+        <!-- IDF Logo SVG -->
+        <svg class="idf-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <!-- Simplified IDF emblem: olive branches + sword + Star of David -->
+          <g transform="translate(50,50)">
+            <!-- Star of David outline -->
+            <polygon points="0,-22 6,-11 19,-11 10,0 14,12 0,5 -14,12 -10,0 -19,-11 -6,-11" fill="none" stroke="#c8a400" stroke-width="2.2"/>
+            <!-- inner triangle up -->
+            <polygon points="0,-16 13,8 -13,8" fill="none" stroke="#c8a400" stroke-width="2"/>
+            <!-- inner triangle down -->
+            <polygon points="0,16 13,-8 -13,-8" fill="none" stroke="#c8a400" stroke-width="2"/>
+            <!-- Sword (vertical center) -->
+            <line x1="0" y1="-32" x2="0" y2="32" stroke="#c8a400" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="-7" y1="-22" x2="7" y2="-22" stroke="#c8a400" stroke-width="2" stroke-linecap="round"/>
+            <!-- Left olive branch -->
+            <path d="M-8,-10 Q-18,-4 -24,4 M-12,-6 Q-20,2 -22,10 M-16,0 Q-20,8 -18,16" fill="none" stroke="#c8a400" stroke-width="1.8" stroke-linecap="round"/>
+            <!-- Right olive branch -->
+            <path d="M8,-10 Q18,-4 24,4 M12,-6 Q20,2 22,10 M16,0 Q20,8 18,16" fill="none" stroke="#c8a400" stroke-width="1.8" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="topnav__left">
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO (green) -->
+    <section class="hero">
+      <div class="hero__header">
+        <h1 class="hero__title">הזימונים שלי</h1>
+      </div>
+      <div class="hero__dots">
+        <span class="active"></span>
+        <span></span>
+      </div>
+
+      <!-- Appointment Card -->
+      <div class="card">
+        <div class="card__top">
+          <div class="card__status">
+            <div class="card__menu-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="card__status-text">מתקיים כעת</span>
+            <div class="card__check">
+              <svg viewBox="0 0 12 10"><polyline points="1,5 4,8 11,1"/></svg>
+            </div>
+          </div>
+          <button class="card__prev-btn">זימון קודם</button>
+        </div>
+
+        <div class="card__body">
+          <div class="card__main-title">
+            תעסוקה מבצעית בצו 8<span class="separator">|</span>116 ימים
+          </div>
+
+          <div class="card__info-row">
+            <span>29.06.25 - 22.10.25</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+
+          <div class="card__info-row">
+            <span>רחובות - מחנה ליפקין</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="card__actions">
+          <button class="card__action-btn card__action-btn--yellow">בקשות מיוחדות</button>
+          <button class="card__action-btn card__action-btn--white">החזרי נסיעות</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOWER SECTION -->
+    <section class="section">
+      <div class="section__header">
+        <button class="section__new-btn">
+          <span>+</span>
+          <span>בקשה חדשה</span>
+        </button>
+        <div class="section__title-wrap">
+          <div class="section__title">פניות ובקשות</div>
+          <div class="section__underline"></div>
+        </div>
+      </div>
+
+      <div class="section__item-meta">
+        עדכון אחרון: <span>02.04.25</span>
+      </div>
+      <div class="section__item-title">
+        שפ&quot;א - פרטי חשרוו רוה
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

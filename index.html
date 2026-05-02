@@ -13,27 +13,27 @@
     }
 
     :root {
-      --green: #4eb84a;
-      --green-dark: #3da039;
-      --red: #d63b3b;
-      --yellow: #f5c842;
-      --yellow-dark: #e6b82a;
-      --white: #ffffff;
-      --text-dark: #1c1c1c;
-      --text-mid: #444;
-      --text-light: #666;
-      --card-shadow: 0 2px 14px rgba(0,0,0,0.12);
-      --font: 'Arial', 'Helvetica', sans-serif;
+      --green:        #4db848;
+      --red:          #d43535;
+      --yellow:       #f4c430;
+      --white:        #ffffff;
+      --nav-border:   #e2e2e2;
+      --text-dark:    #1a1a1a;
+      --text-mid:     #3d3d3d;
+      --text-light:   #777;
+      --gold:         #c6a000;
+      --card-radius:  18px;
+      --font:         'Arial', 'Helvetica', sans-serif;
     }
 
     html, body {
       height: 100%;
-      background: #f4f4f4;
+      background: #ebebeb;
       font-family: var(--font);
       color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ── PAGE WRAPPER ── */
     .page {
       max-width: 430px;
       margin: 0 auto;
@@ -41,206 +41,251 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
-    /* ── TOP NAV ── */
-    .topnav {
+    /* ═══════════════════════════
+       TOP NAV
+    ═══════════════════════════ */
+    .nav {
       background: var(--white);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 16px 8px;
-      border-bottom: 1px solid #e8e8e8;
+      padding: 0 16px;
+      height: 58px;
+      border-bottom: 1px solid var(--nav-border);
       position: relative;
-      z-index: 10;
+      z-index: 30;
+      flex-shrink: 0;
     }
 
-    .topnav__right {
+    /* ── right cluster: profile + bell ── */
+    .nav__right {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .topnav__left {
-      display: flex;
-      align-items: center;
-    }
-
-    .topnav__center {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text-dark);
-    }
-
-    /* profile icon */
-    .icon-profile {
-      width: 34px;
-      height: 34px;
-      border: 2px solid #ccc;
+    .nav__profile {
+      width: 33px;
+      height: 33px;
+      border: 1.8px solid #c8c8c8;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
-    .icon-profile svg { width: 18px; height: 18px; fill: #888; }
+    .nav__profile svg {
+      width: 18px;
+      height: 18px;
+      fill: #9a9a9a;
+    }
 
-    /* bell + badge wrapper */
-    .bell-wrap {
+    .nav__bell-wrap {
       position: relative;
-      width: 38px;
-      height: 38px;
-      background: #fff8dc;
+      width: 40px;
+      height: 40px;
+      background: #fff9d6;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      flex-shrink: 0;
     }
-    .bell-wrap svg { width: 20px; height: 20px; fill: #d4a800; }
-    .bell-badge {
+    .nav__bell-wrap svg {
+      width: 21px;
+      height: 21px;
+      fill: #c89e00;
+    }
+    .nav__bell-badge {
       position: absolute;
-      top: 1px;
-      right: 1px;
-      background: #e53935;
+      top: 2px;
+      right: 2px;
+      background: #e53030;
       color: #fff;
-      font-size: 10px;
-      font-weight: 700;
-      width: 16px;
-      height: 16px;
+      font-size: 9.5px;
+      font-weight: 800;
+      width: 15px;
+      height: 15px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1.5px solid #fff;
+      line-height: 1;
     }
 
-    /* notification tooltip */
-    .notif-tooltip {
-      position: absolute;
-      top: 56px;
-      right: 50px;
-      background: #fff3b0;
-      border: 1.5px solid #e8cc40;
-      border-radius: 10px;
-      padding: 8px 14px;
-      font-size: 14px;
+    /* ── center: IDF logo + greeting ── */
+    .nav__divider {
+      width: 1px;
+      height: 34px;
+      background: var(--nav-border);
+      flex-shrink: 0;
+    }
+
+    .nav__center {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      /* In RTL flex: first child → visual right, second → visual left */
+    }
+    .nav__greeting {
+      font-size: 15px;
       font-weight: 600;
       color: var(--text-dark);
       white-space: nowrap;
-      z-index: 20;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-    }
-    .notif-tooltip::before {
-      content: '';
-      position: absolute;
-      top: -9px;
-      right: 16px;
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-      border-bottom: 9px solid #e8cc40;
-    }
-    .notif-tooltip::after {
-      content: '';
-      position: absolute;
-      top: -7px;
-      right: 17px;
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-bottom: 8px solid #fff3b0;
     }
 
-    /* IDF logo */
+    /* ── IDF logo ── */
     .idf-logo {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
     }
 
-    /* hamburger */
-    .hamburger {
+    /* ── left: hamburger ── */
+    .nav__hamburger {
       display: flex;
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
-      padding: 4px;
+      padding: 5px;
+      flex-shrink: 0;
     }
-    .hamburger span {
+    .nav__hamburger span {
       display: block;
       width: 22px;
       height: 2.5px;
-      background: #333;
+      background: #2a2a2a;
       border-radius: 2px;
     }
 
-    /* ── GREEN HERO ── */
-    .hero {
-      background: var(--green);
-      padding: 20px 16px 28px;
-      position: relative;
+    /* ── notification tooltip ── */
+    .nav__tooltip {
+      position: absolute;
+      /* anchor below the bell: bell sits on the right cluster, tooltip extends left */
+      top: 54px;
+      right: 44px;   /* slightly left of the bell's right edge */
+      background: #fffacc;
+      border: 1.5px solid #dfc624;
+      border-radius: 10px;
+      padding: 9px 15px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+      white-space: nowrap;
+      z-index: 40;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.10);
+      pointer-events: none;
+    }
+    /* upward-pointing arrow aligned with bell */
+    .nav__tooltip::before {
+      content: '';
+      position: absolute;
+      top: -9px;
+      right: 14px;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 9px solid #dfc624;
+    }
+    .nav__tooltip::after {
+      content: '';
+      position: absolute;
+      top: -7px;
+      right: 15px;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-bottom: 8px solid #fffacc;
     }
 
-    .hero__header {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      margin-bottom: 6px;
+    /* ═══════════════════════════
+       GREEN HERO
+    ═══════════════════════════ */
+    .hero {
+      background: var(--green);
+      padding: 18px 16px 24px;
+      flex-shrink: 0;
     }
 
     .hero__title {
-      font-size: 26px;
+      font-size: 27px;
       font-weight: 800;
       color: var(--white);
-      text-align: right;
+      text-align: right;        /* physical right = visual right ✓ */
+      line-height: 1.2;
+      margin-bottom: 8px;
     }
 
     .hero__dots {
       display: flex;
       gap: 5px;
-      justify-content: flex-end;
-      margin-bottom: 16px;
+      justify-content: flex-start;  /* RTL flex-start = visual right ✓ */
+      margin-bottom: 18px;
     }
     .hero__dots span {
-      width: 22px;
+      display: block;
+      width: 24px;
       height: 4px;
       border-radius: 2px;
-      background: rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.38);
     }
     .hero__dots span.active {
       background: var(--white);
     }
 
-    /* ── APPOINTMENT CARD ── */
+    /* ═══════════════════════════
+       APPOINTMENT CARD
+    ═══════════════════════════ */
     .card {
       background: var(--white);
-      border-radius: 18px;
-      box-shadow: var(--card-shadow);
+      border-radius: var(--card-radius);
       overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.13);
     }
 
     .card__top {
-      padding: 14px 14px 0;
+      padding: 14px 14px 0 14px;
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: flex-start;
+      /* RTL: first child → visual right, second → visual left */
     }
 
+    /* RED BUTTON — first in HTML → visual RIGHT ✓ */
+    .card__prev-btn {
+      background: var(--red);
+      color: var(--white);
+      font-size: 15.5px;
+      font-weight: 700;
+      padding: 9px 22px;
+      border-radius: 11px;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font);
+      letter-spacing: 0.2px;
+      flex-shrink: 0;
+    }
+
+    /* STATUS ROW — second in HTML → visual LEFT ✓ */
     .card__status {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
+      /* RTL: items flow right-to-left */
     }
 
-    .card__menu-dots {
+    /* kebab dots: first → visual right inside status */
+    .card__kebab {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 3.5px;
+      padding: 2px 3px;
       cursor: pointer;
-      padding: 2px 4px;
     }
-    .card__menu-dots span {
+    .card__kebab span {
       display: block;
       width: 4px;
       height: 4px;
@@ -248,78 +293,79 @@
       background: var(--green);
     }
 
-    .card__status-text {
+    .card__status-label {
       font-size: 14px;
       font-weight: 700;
       color: var(--green);
     }
 
     .card__check {
-      width: 18px;
-      height: 18px;
+      width: 19px;
+      height: 19px;
       border-radius: 50%;
       border: 2px solid var(--green);
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
-    .card__check svg { width: 10px; height: 10px; stroke: var(--green); fill: none; stroke-width: 2.5; }
-
-    .card__prev-btn {
-      background: var(--red);
-      color: var(--white);
-      font-size: 15px;
-      font-weight: 700;
-      padding: 8px 20px;
-      border-radius: 12px;
-      border: none;
-      cursor: pointer;
-      font-family: var(--font);
+    .card__check svg {
+      width: 10px;
+      height: 10px;
+      stroke: var(--green);
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
+    /* ── Card body ── */
     .card__body {
-      padding: 12px 16px 14px;
+      padding: 14px 16px 12px;
     }
 
-    .card__main-title {
-      font-size: 19px;
+    .card__title {
+      font-size: 19.5px;
       font-weight: 800;
       color: var(--text-dark);
       text-align: right;
       line-height: 1.4;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
-
-    .card__main-title .separator {
+    .card__title .sep {
       color: var(--green);
+      font-weight: 300;
       margin: 0 6px;
-      font-weight: 400;
     }
 
-    .card__info-row {
+    .card__meta {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
       gap: 8px;
-      margin-bottom: 8px;
-      color: var(--text-mid);
-      font-size: 14px;
+      margin-bottom: 9px;
+      /* RTL flex-start = visual right: text first (right), icon second (left) ✓ */
+      justify-content: flex-start;
     }
-    .card__info-row svg {
-      width: 18px;
-      height: 18px;
+    .card__meta-text {
+      font-size: 14px;
+      color: var(--text-mid);
+      direction: ltr;   /* dates & locations stay LTR internally */
+      unicode-bidi: embed;
+    }
+    .card__meta-icon {
+      width: 19px;
+      height: 19px;
       flex-shrink: 0;
     }
 
+    /* ── Card action buttons ── */
     .card__actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      border-top: 1px solid #f0f0f0;
-      margin-top: 4px;
+      border-top: 1px solid #efefef;
     }
-
-    .card__action-btn {
-      padding: 14px 8px;
+    .card__action {
+      padding: 15px 8px;
       text-align: center;
       font-size: 15px;
       font-weight: 600;
@@ -327,16 +373,19 @@
       border: none;
       font-family: var(--font);
       color: var(--text-dark);
+      letter-spacing: 0.1px;
     }
-    .card__action-btn--yellow {
-      background: var(--yellow);
-    }
-    .card__action-btn--white {
+    /* RTL grid: first cell → visual right ✓ */
+    .card__action--yellow { background: var(--yellow); }
+    .card__action--white  {
       background: var(--white);
-      border-right: 1px solid #f0f0f0;
+      /* divider between the two buttons */
+      border-inline-start: 1px solid #efefef;
     }
 
-    /* ── LOWER SECTION ── */
+    /* ═══════════════════════════
+       LOWER SECTION
+    ═══════════════════════════ */
     .section {
       background: var(--white);
       padding: 22px 16px 0;
@@ -347,199 +396,243 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 4px;
+      margin-bottom: 16px;
+      /* RTL: first child → visual right, second → visual left */
     }
 
-    .section__title-wrap {
-      text-align: right;
+    /* TITLE — first in HTML → visual RIGHT ✓ */
+    .section__title-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;  /* RTL flex-end = visual right ✓ */
     }
-
     .section__title {
       font-size: 22px;
       font-weight: 800;
       color: var(--text-dark);
     }
-
     .section__underline {
-      width: 40px;
+      width: 44px;
       height: 4px;
       background: var(--yellow);
       border-radius: 2px;
-      margin-top: 4px;
-      margin-right: auto;
-      margin-left: 0;
+      margin-top: 5px;
     }
 
+    /* NEW REQUEST BUTTON — second in HTML → visual LEFT ✓ */
     .section__new-btn {
       background: var(--green);
       color: var(--white);
       border: none;
-      border-radius: 24px;
-      padding: 10px 18px;
+      border-radius: 26px;
+      padding: 11px 20px;
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       font-family: var(--font);
+      flex-shrink: 0;
+    }
+    .section__new-btn .plus {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1;
     }
 
-    .section__item-meta {
-      text-align: left;
-      font-size: 13px;
+    /* ── Item list ── */
+    .item {
+      border-top: 1px solid #f0f0f0;
+      padding: 12px 0 14px;
+    }
+    .item__meta {
+      font-size: 12.5px;
       color: var(--text-light);
-      margin-top: 18px;
+      text-align: right;
       margin-bottom: 4px;
+      direction: ltr;
+      unicode-bidi: embed;
+      text-align: left;  /* LTR date on left side */
     }
-    .section__item-meta span {
-      font-weight: 600;
+    .item__meta strong {
       color: var(--text-mid);
+      font-weight: 600;
     }
-
-    .section__item-title {
+    .item__title {
       font-size: 17px;
       font-weight: 800;
       color: var(--text-dark);
       text-align: right;
-      padding-bottom: 16px;
-      border-bottom: 1px solid #efefef;
     }
   </style>
 </head>
 <body>
-  <div class="page">
+<div class="page">
 
-    <!-- TOP NAV -->
-    <nav class="topnav">
-      <div class="topnav__right">
-        <div class="icon-profile">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-          </svg>
-        </div>
+  <!-- ═══ TOP NAV ═══ -->
+  <nav class="nav">
 
-        <!-- Bell with tooltip -->
-        <div style="position:relative;">
-          <div class="bell-wrap">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V11c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
-            </svg>
-            <div class="bell-badge">1</div>
-          </div>
-          <div class="notif-tooltip">יש לך הודעות חדשות</div>
-        </div>
-      </div>
-
-      <div class="topnav__center">
-        <span>בוקר טוב ידידיה</span>
-        <!-- IDF Logo SVG -->
-        <svg class="idf-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <!-- Simplified IDF emblem: olive branches + sword + Star of David -->
-          <g transform="translate(50,50)">
-            <!-- Star of David outline -->
-            <polygon points="0,-22 6,-11 19,-11 10,0 14,12 0,5 -14,12 -10,0 -19,-11 -6,-11" fill="none" stroke="#c8a400" stroke-width="2.2"/>
-            <!-- inner triangle up -->
-            <polygon points="0,-16 13,8 -13,8" fill="none" stroke="#c8a400" stroke-width="2"/>
-            <!-- inner triangle down -->
-            <polygon points="0,16 13,-8 -13,-8" fill="none" stroke="#c8a400" stroke-width="2"/>
-            <!-- Sword (vertical center) -->
-            <line x1="0" y1="-32" x2="0" y2="32" stroke="#c8a400" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="-7" y1="-22" x2="7" y2="-22" stroke="#c8a400" stroke-width="2" stroke-linecap="round"/>
-            <!-- Left olive branch -->
-            <path d="M-8,-10 Q-18,-4 -24,4 M-12,-6 Q-20,2 -22,10 M-16,0 Q-20,8 -18,16" fill="none" stroke="#c8a400" stroke-width="1.8" stroke-linecap="round"/>
-            <!-- Right olive branch -->
-            <path d="M8,-10 Q18,-4 24,4 M12,-6 Q20,2 22,10 M16,0 Q20,8 18,16" fill="none" stroke="#c8a400" stroke-width="1.8" stroke-linecap="round"/>
-          </g>
+    <!-- RIGHT cluster (first child in RTL = visual right) -->
+    <div class="nav__right">
+      <div class="nav__profile">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 12c2.6 0 4.7-2.1 4.7-4.7S14.6 2.6 12 2.6 7.3 4.7 7.3 7.3 9.4 12 12 12zm0 2.4c-3.2 0-9.4 1.6-9.4 4.7v2.3h18.8v-2.3c0-3.1-6.2-4.7-9.4-4.7z"/>
         </svg>
       </div>
 
-      <div class="topnav__left">
-        <div class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+      <!-- Bell -->
+      <div class="nav__bell-wrap">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V11c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+        </svg>
+        <div class="nav__bell-badge">1</div>
       </div>
-    </nav>
+    </div>
 
-    <!-- HERO (green) -->
-    <section class="hero">
-      <div class="hero__header">
-        <h1 class="hero__title">הזימונים שלי</h1>
-      </div>
-      <div class="hero__dots">
-        <span class="active"></span>
-        <span></span>
-      </div>
+    <!-- tooltip anchored to the nav (not the bell wrapper) -->
+    <div class="nav__tooltip">יש לך הודעות חדשות</div>
 
-      <!-- Appointment Card -->
-      <div class="card">
-        <div class="card__top">
-          <div class="card__status">
-            <div class="card__menu-dots">
-              <span></span><span></span><span></span>
-            </div>
-            <span class="card__status-text">מתקיים כעת</span>
-            <div class="card__check">
-              <svg viewBox="0 0 12 10"><polyline points="1,5 4,8 11,1"/></svg>
-            </div>
+    <!-- Divider -->
+    <div class="nav__divider"></div>
+
+    <!-- CENTER: greeting + IDF logo -->
+    <div class="nav__center">
+      <!-- RTL: first child → visual right, second → visual left -->
+      <span class="nav__greeting">בוקר טוב ידידיה</span>
+      <!-- IDF Tzahal emblem (gold) -->
+      <svg class="idf-logo" viewBox="0 0 56 66" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#C6A000" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Sword blade -->
+          <line x1="28" y1="4" x2="28" y2="56" stroke-width="3" stroke="#C6A000"/>
+          <!-- Crossguard -->
+          <line x1="20" y1="15" x2="36" y2="15" stroke-width="2.5"/>
+          <!-- Sword tip triangle -->
+          <polyline points="24,4 28,0 32,4" stroke-width="2" fill="#C6A000"/>
+          <!-- Left olive branch stems -->
+          <path d="M28,22 Q20,26 15,33" stroke-width="2"/>
+          <path d="M28,30 Q19,33 15,41" stroke-width="1.8"/>
+          <path d="M28,38 Q21,40 18,48" stroke-width="1.6"/>
+          <!-- Left leaves -->
+          <ellipse cx="14" cy="33" rx="4.5" ry="2.2" transform="rotate(-40 14 33)" fill="#C6A000" stroke="none"/>
+          <ellipse cx="13" cy="41" rx="4.5" ry="2.2" transform="rotate(-30 13 41)" fill="#C6A000" stroke="none"/>
+          <ellipse cx="16" cy="48" rx="4" ry="2" transform="rotate(-20 16 48)" fill="#C6A000" stroke="none"/>
+          <!-- Right olive branch stems -->
+          <path d="M28,22 Q36,26 41,33" stroke-width="2"/>
+          <path d="M28,30 Q37,33 41,41" stroke-width="1.8"/>
+          <path d="M28,38 Q35,40 38,48" stroke-width="1.6"/>
+          <!-- Right leaves -->
+          <ellipse cx="42" cy="33" rx="4.5" ry="2.2" transform="rotate(40 42 33)" fill="#C6A000" stroke="none"/>
+          <ellipse cx="43" cy="41" rx="4.5" ry="2.2" transform="rotate(30 43 41)" fill="#C6A000" stroke="none"/>
+          <ellipse cx="40" cy="48" rx="4" ry="2" transform="rotate(20 40 48)" fill="#C6A000" stroke="none"/>
+          <!-- Star of David (simplified) -->
+          <polygon points="28,18 32,25 24,25" stroke-width="1.5" fill="none"/>
+          <polygon points="28,30 32,23 24,23" stroke-width="1.5" fill="none"/>
+        </g>
+        <!-- Sword pommel -->
+        <circle cx="28" cy="56" r="3.5" fill="#C6A000"/>
+      </svg>
+    </div>
+
+    <!-- LEFT: hamburger (last child in RTL = visual left) -->
+    <div class="nav__hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+  </nav>
+
+  <!-- ═══ GREEN HERO ═══ -->
+  <section class="hero">
+    <h1 class="hero__title">הזימונים שלי</h1>
+    <div class="hero__dots">
+      <span class="active"></span>
+      <span></span>
+    </div>
+
+    <!-- Appointment Card -->
+    <div class="card">
+      <div class="card__top">
+
+        <!-- RED BUTTON — first child → visual RIGHT ✓ -->
+        <button class="card__prev-btn">זימון קודם</button>
+
+        <!-- STATUS — second child → visual LEFT ✓ -->
+        <div class="card__status">
+          <!-- RTL: kebab first → visual right of the status group -->
+          <div class="card__kebab">
+            <span></span><span></span><span></span>
           </div>
-          <button class="card__prev-btn">זימון קודם</button>
-        </div>
-
-        <div class="card__body">
-          <div class="card__main-title">
-            תעסוקה מבצעית בצו 8<span class="separator">|</span>116 ימים
-          </div>
-
-          <div class="card__info-row">
-            <span>29.06.25 - 22.10.25</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-              <line x1="16" y1="2" x2="16" y2="6"/>
-              <line x1="8" y1="2" x2="8" y2="6"/>
-              <line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
-          </div>
-
-          <div class="card__info-row">
-            <span>רחובות - מחנה ליפקין</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
+          <span class="card__status-label">מתקיים כעת</span>
+          <div class="card__check">
+            <svg viewBox="0 0 12 10"><polyline points="1,5 4.5,8.5 11,1.5"/></svg>
           </div>
         </div>
 
-        <div class="card__actions">
-          <button class="card__action-btn card__action-btn--yellow">בקשות מיוחדות</button>
-          <button class="card__action-btn card__action-btn--white">החזרי נסיעות</button>
+      </div>
+
+      <div class="card__body">
+        <div class="card__title">
+          תעסוקה מבצעית בצו 8<span class="sep">|</span>116 ימים
+        </div>
+
+        <!-- Date row: text first (visual right), icon second (visual left) ✓ -->
+        <div class="card__meta">
+          <span class="card__meta-text">29.06.25 – 22.10.25</span>
+          <svg class="card__meta-icon" viewBox="0 0 24 24" fill="none"
+               stroke="#555" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8"  y1="2" x2="8"  y2="6"/>
+            <line x1="3"  y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+
+        <!-- Location row -->
+        <div class="card__meta">
+          <span class="card__meta-text">רחובות – מחנה ליפקין</span>
+          <svg class="card__meta-icon" viewBox="0 0 24 24" fill="none"
+               stroke="#555" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
         </div>
       </div>
-    </section>
 
-    <!-- LOWER SECTION -->
-    <section class="section">
-      <div class="section__header">
-        <button class="section__new-btn">
-          <span>+</span>
-          <span>בקשה חדשה</span>
-        </button>
-        <div class="section__title-wrap">
-          <div class="section__title">פניות ובקשות</div>
-          <div class="section__underline"></div>
-        </div>
+      <!-- Action buttons: RTL grid → first cell = visual right ✓ -->
+      <div class="card__actions">
+        <button class="card__action card__action--yellow">בקשות מיוחדות</button>
+        <button class="card__action card__action--white">החזרי נסיעות</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ LOWER SECTION ═══ -->
+  <section class="section">
+    <div class="section__header">
+
+      <!-- TITLE BLOCK — first child → visual RIGHT ✓ -->
+      <div class="section__title-block">
+        <span class="section__title">פניות ובקשות</span>
+        <div class="section__underline"></div>
       </div>
 
-      <div class="section__item-meta">
-        עדכון אחרון: <span>02.04.25</span>
-      </div>
-      <div class="section__item-title">
-        שפ&quot;א - פרטי חשרוו רוה
-      </div>
-    </section>
+      <!-- NEW BTN — second child → visual LEFT ✓ -->
+      <button class="section__new-btn">
+        <span class="plus">+</span>
+        <span>בקשה חדשה</span>
+      </button>
 
-  </div>
+    </div>
+
+    <!-- Item -->
+    <div class="item">
+      <div class="item__meta">עדכון אחרון:&nbsp;<strong>02.04.25</strong></div>
+      <div class="item__title">שפ"א – פרטי חשרוו רוה</div>
+    </div>
+  </section>
+
+</div>
 </body>
 </html>

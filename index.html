@@ -5,62 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>מילואים - הזימונים שלי</title>
   <style>
+    @font-face {
+      font-family: 'Heebo';
+      src: url('fonts/Heebo-400.ttf') format('truetype');
+      font-weight: 400; font-style: normal;
+    }
+    @font-face {
+      font-family: 'Heebo';
+      src: url('fonts/Heebo-600.ttf') format('truetype');
+      font-weight: 600; font-style: normal;
+    }
+    @font-face {
+      font-family: 'Heebo';
+      src: url('fonts/Heebo-700.ttf') format('truetype');
+      font-weight: 700; font-style: normal;
+    }
+    @font-face {
+      font-family: 'Heebo';
+      src: url('fonts/Heebo-800.ttf') format('truetype');
+      font-weight: 800; font-style: normal;
+    }
+
     *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      box-sizing: border-box; margin: 0; padding: 0;
       -webkit-tap-highlight-color: transparent;
     }
 
     :root {
-      --green:        #4db848;
-      --red:          #d43535;
-      --yellow:       #f4c430;
-      --white:        #ffffff;
-      --nav-border:   #e2e2e2;
-      --text-dark:    #1a1a1a;
-      --text-mid:     #3d3d3d;
-      --text-light:   #777;
-      --gold:         #c6a000;
-      --card-radius:  18px;
-      --font:         'Arial', 'Helvetica', sans-serif;
+      --green:   #7EDC81;
+      --red:     #d43535;
+      --yellow:  #f4c430;
+      --white:   #ffffff;
+      --gold:    #c6a000;
+      --border:  #e2e2e2;
+      --dark:    #1a1a1a;
+      --mid:     #3d3d3d;
+      --light:   #777;
+      --font:    'Heebo', Arial, sans-serif;
     }
 
     html, body {
       height: 100%;
-      background: #ebebeb;
+      background: #f0f0f0;
       font-family: var(--font);
-      color: var(--text-dark);
+      color: var(--dark);
       -webkit-font-smoothing: antialiased;
     }
 
     .page {
-      max-width: 430px;
+      max-width: 530px;
       margin: 0 auto;
       background: var(--white);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow-x: hidden;
     }
 
-    /* ═══════════════════════════
-       TOP NAV
-    ═══════════════════════════ */
+    /* ═══ NAV ═══ */
     .nav {
       background: var(--white);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px;
-      height: 58px;
-      border-bottom: 1px solid var(--nav-border);
+      padding: 0 18px;
+      height: 78px;
+      border-bottom: 1px solid var(--border);
       position: relative;
       z-index: 30;
       flex-shrink: 0;
     }
 
-    /* ── right cluster: profile + bell ── */
     .nav__right {
       display: flex;
       align-items: center;
@@ -68,568 +82,379 @@
     }
 
     .nav__profile {
-      width: 33px;
-      height: 33px;
-      border: 1.8px solid #c8c8c8;
+      width: 36px; height: 36px;
+      border: 2px solid #c0c0c0;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
     }
-    .nav__profile svg {
-      width: 18px;
-      height: 18px;
-      fill: #9a9a9a;
-    }
+    .nav__profile svg { width: 20px; height: 20px; fill: #999; }
 
     .nav__bell-wrap {
       position: relative;
-      width: 40px;
-      height: 40px;
-      background: #fff9d6;
+      width: 44px; height: 44px;
+      background: #fff9d0;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
     }
-    .nav__bell-wrap svg {
-      width: 21px;
-      height: 21px;
-      fill: #c89e00;
-    }
+    .nav__bell-wrap svg { width: 22px; height: 22px; fill: #c89e00; }
     .nav__bell-badge {
-      position: absolute;
-      top: 2px;
-      right: 2px;
+      position: absolute; top: 3px; right: 3px;
       background: #e53030;
       color: #fff;
-      font-size: 9.5px;
-      font-weight: 800;
-      width: 15px;
-      height: 15px;
+      font-size: 10px; font-weight: 800;
+      width: 16px; height: 16px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       border: 1.5px solid #fff;
-      line-height: 1;
     }
 
-    /* ── center: IDF logo + greeting ── */
-    .nav__divider {
-      width: 1px;
-      height: 34px;
-      background: var(--nav-border);
-      flex-shrink: 0;
-    }
-
-    .nav__center {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      /* In RTL flex: first child → visual right, second → visual left */
-    }
-    .nav__greeting {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text-dark);
-      white-space: nowrap;
-    }
-
-    /* ── IDF logo ── */
-    .idf-logo {
-      width: 38px;
-      height: 38px;
-      flex-shrink: 0;
-    }
-
-    /* ── left: hamburger ── */
-    .nav__hamburger {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 5px;
-      flex-shrink: 0;
-    }
-    .nav__hamburger span {
-      display: block;
-      width: 22px;
-      height: 2.5px;
-      background: #2a2a2a;
-      border-radius: 2px;
-    }
-
-    /* ── notification tooltip ── */
     .nav__tooltip {
       position: absolute;
-      /* anchor below the bell: bell sits on the right cluster, tooltip extends left */
-      top: 54px;
-      right: 44px;   /* slightly left of the bell's right edge */
+      top: 78px; right: 315px;
       background: #fffacc;
       border: 1.5px solid #dfc624;
       border-radius: 10px;
-      padding: 9px 15px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-dark);
+      padding: 9px 16px;
+      font-size: 14px; font-weight: 600;
+      color: var(--dark);
       white-space: nowrap;
       z-index: 40;
       box-shadow: 0 3px 10px rgba(0,0,0,0.10);
       pointer-events: none;
     }
-    /* upward-pointing arrow aligned with bell */
     .nav__tooltip::before {
       content: '';
-      position: absolute;
-      top: -9px;
-      right: 14px;
+      position: absolute; top: -9px; right: 14px;
       border-left: 8px solid transparent;
       border-right: 8px solid transparent;
       border-bottom: 9px solid #dfc624;
     }
     .nav__tooltip::after {
       content: '';
-      position: absolute;
-      top: -7px;
-      right: 15px;
+      position: absolute; top: -7px; right: 15px;
       border-left: 7px solid transparent;
       border-right: 7px solid transparent;
       border-bottom: 8px solid #fffacc;
     }
 
-    /* ═══════════════════════════
-       GREEN HERO
-    ═══════════════════════════ */
+    .nav__divider {
+      width: 1px; height: 36px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    .nav__center {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav__greeting {
+      font-size: 16px; font-weight: 600;
+      color: var(--dark); white-space: nowrap;
+    }
+
+    /* IDF logo — circle emblem */
+    .idf-logo {
+      width: 40px; height: 40px; flex-shrink: 0;
+    }
+
+    .nav__hamburger {
+      display: flex; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 5px;
+    }
+    .nav__hamburger span {
+      display: block; width: 24px; height: 2.5px;
+      background: #2a2a2a; border-radius: 2px;
+    }
+
+    /* ═══ HERO ═══ */
     .hero {
       background: var(--green);
-      padding: 18px 16px 24px;
+      padding: 14px 18px 84px;
       flex-shrink: 0;
     }
 
     .hero__title {
-      font-size: 27px;
-      font-weight: 800;
+      font-size: 36px; font-weight: 800;
       color: var(--white);
-      text-align: right;        /* physical right = visual right ✓ */
+      text-align: right;
       line-height: 1.2;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .hero__dots {
-      display: flex;
-      gap: 5px;
-      justify-content: flex-start;  /* RTL flex-start = visual right ✓ */
-      margin-bottom: 18px;
+      display: flex; gap: 6px;
+      justify-content: flex-start; /* RTL: visual right */
+      margin-bottom: 16px;
     }
     .hero__dots span {
-      display: block;
-      width: 24px;
-      height: 4px;
+      display: block; width: 26px; height: 4px;
       border-radius: 2px;
-      background: rgba(255,255,255,0.38);
+      background: rgba(255,255,255,0.35);
     }
-    .hero__dots span.active {
-      background: var(--white);
-    }
+    .hero__dots span.active { background: var(--white); }
 
-    /* ═══════════════════════════
-       APPOINTMENT CARD
-    ═══════════════════════════ */
+    /* ═══ CARD ═══ */
     .card {
       background: var(--white);
-      border-radius: var(--card-radius);
+      border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.13);
+      box-shadow: 0 3px 18px rgba(0,0,0,0.14);
     }
 
     .card__top {
-      padding: 14px 14px 0 14px;
-      display: flex;
-      align-items: center;
+      padding: 16px 16px 0;
+      display: flex; align-items: center;
       justify-content: space-between;
-      /* RTL: first child → visual right, second → visual left */
+      /* RTL: first child → visual right */
     }
 
-    /* RED BUTTON — first in HTML → visual RIGHT ✓ */
+    /* first → visual RIGHT */
     .card__prev-btn {
       background: var(--red);
       color: var(--white);
-      font-size: 15.5px;
-      font-weight: 700;
-      padding: 9px 22px;
-      border-radius: 11px;
-      border: none;
-      cursor: pointer;
-      font-family: var(--font);
-      letter-spacing: 0.2px;
+      font-size: 17px; font-weight: 700;
+      padding: 11px 24px;
+      border-radius: 12px; border: none;
+      cursor: pointer; font-family: var(--font);
       flex-shrink: 0;
     }
 
-    /* STATUS ROW — second in HTML → visual LEFT ✓ */
+    /* second → visual LEFT */
     .card__status {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      /* RTL: items flow right-to-left */
+      display: flex; align-items: center; gap: 8px;
     }
-
-    /* kebab dots: first → visual right inside status */
     .card__kebab {
-      display: flex;
-      flex-direction: column;
-      gap: 3.5px;
-      padding: 2px 3px;
-      cursor: pointer;
+      display: flex; flex-direction: column; gap: 4px;
+      padding: 2px 4px; cursor: pointer;
     }
     .card__kebab span {
-      display: block;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--green);
+      display: block; width: 4.5px; height: 4.5px;
+      border-radius: 50%; background: var(--green);
     }
-
     .card__status-label {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--green);
+      font-size: 16px; font-weight: 700; color: var(--green);
     }
-
     .card__check {
-      width: 19px;
-      height: 19px;
-      border-radius: 50%;
-      border: 2px solid var(--green);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      width: 22px; height: 22px;
+      border-radius: 50%; border: 2px solid var(--green);
+      display: flex; align-items: center; justify-content: center;
     }
     .card__check svg {
-      width: 10px;
-      height: 10px;
-      stroke: var(--green);
-      fill: none;
-      stroke-width: 2.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      width: 12px; height: 12px;
+      stroke: var(--green); fill: none;
+      stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
     }
 
-    /* ── Card body ── */
-    .card__body {
-      padding: 14px 16px 12px;
-    }
+    .card__body { padding: 20px 20px 178px; }
 
     .card__title {
-      font-size: 19.5px;
-      font-weight: 800;
-      color: var(--text-dark);
-      text-align: right;
-      line-height: 1.4;
-      margin-bottom: 14px;
+      font-size: 24px; font-weight: 800;
+      color: var(--dark); text-align: right;
+      line-height: 1.45; margin-bottom: 18px;
     }
     .card__title .sep {
-      color: var(--green);
-      font-weight: 300;
-      margin: 0 6px;
+      color: var(--green); font-weight: 300; margin: 0 6px;
     }
 
     .card__meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 9px;
-      /* RTL flex-start = visual right: text first (right), icon second (left) ✓ */
-      justify-content: flex-start;
+      display: flex; align-items: center;
+      gap: 10px; margin-bottom: 12px;
+      justify-content: flex-start; /* RTL: visual right */
     }
     .card__meta-text {
-      font-size: 14px;
-      color: var(--text-mid);
-      direction: ltr;   /* dates & locations stay LTR internally */
-      unicode-bidi: embed;
+      font-size: 16px; color: var(--mid);
     }
     .card__meta-icon {
-      width: 19px;
-      height: 19px;
-      flex-shrink: 0;
+      width: 20px; height: 20px; flex-shrink: 0;
     }
 
-    /* ── Card action buttons ── */
     .card__actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-top: 1px solid #efefef;
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-top: 1px solid #f0f0f0;
     }
     .card__action {
-      padding: 15px 8px;
+      padding: 13px 8px;
       text-align: center;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      font-family: var(--font);
-      color: var(--text-dark);
-      letter-spacing: 0.1px;
+      font-size: 17px; font-weight: 600;
+      cursor: pointer; border: none;
+      font-family: var(--font); color: var(--dark);
     }
-    /* RTL grid: first cell → visual right ✓ */
     .card__action--yellow { background: var(--yellow); }
     .card__action--white  {
       background: var(--white);
-      /* divider between the two buttons */
-      border-inline-start: 1px solid #efefef;
+      border-inline-end: 1px solid #f0f0f0;
     }
 
-    /* ═══════════════════════════
-       LOWER SECTION
-    ═══════════════════════════ */
+    /* ═══ SECTION ═══ */
     .section {
       background: var(--white);
-      padding: 22px 16px 0;
-      flex: 1;
+      padding: 24px 18px 0; flex: 1;
     }
 
     .section__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      /* RTL: first child → visual right, second → visual left */
+      display: flex; align-items: center;
+      justify-content: space-between; margin-bottom: 18px;
     }
 
-    /* TITLE — first in HTML → visual RIGHT ✓ */
+    /* first → visual RIGHT */
     .section__title-block {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;  /* RTL flex-end = visual right ✓ */
+      display: flex; flex-direction: column;
+      align-items: flex-end;
     }
     .section__title {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--text-dark);
+      font-size: 24px; font-weight: 800; color: var(--dark);
     }
     .section__underline {
-      width: 44px;
-      height: 4px;
+      width: 46px; height: 4px;
       background: var(--yellow);
-      border-radius: 2px;
-      margin-top: 5px;
+      border-radius: 2px; margin-top: 5px;
     }
 
-    /* NEW REQUEST BUTTON — second in HTML → visual LEFT ✓ */
+    /* second → visual LEFT */
     .section__new-btn {
-      background: var(--green);
-      color: var(--white);
-      border: none;
-      border-radius: 26px;
-      padding: 11px 20px;
-      font-size: 15px;
-      font-weight: 700;
+      background: var(--green); color: var(--white);
+      border: none; border-radius: 28px;
+      padding: 12px 22px;
+      font-size: 16px; font-weight: 700;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-family: var(--font);
-      flex-shrink: 0;
+      display: flex; align-items: center; gap: 5px;
+      font-family: var(--font); flex-shrink: 0;
     }
-    .section__new-btn .plus {
-      font-size: 18px;
-      font-weight: 400;
-      line-height: 1;
-    }
+    .section__new-btn .plus { font-size: 20px; font-weight: 400; line-height: 1; }
 
-    /* ── Item list ── */
     .item {
       border-top: 1px solid #f0f0f0;
-      padding: 12px 0 14px;
+      padding: 14px 0 16px;
     }
     .item__meta {
-      font-size: 12.5px;
-      color: var(--text-light);
-      text-align: right;
-      margin-bottom: 4px;
-      direction: ltr;
-      unicode-bidi: embed;
-      text-align: left;  /* LTR date on left side */
+      font-size: 13px; color: var(--light);
+      margin-bottom: 5px;
     }
-    .item__meta strong {
-      color: var(--text-mid);
-      font-weight: 600;
-    }
+    .item__meta strong { color: var(--mid); font-weight: 600; }
     .item__title {
-      font-size: 17px;
-      font-weight: 800;
-      color: var(--text-dark);
-      text-align: right;
+      font-size: 18px; font-weight: 800;
+      color: var(--dark); text-align: right;
     }
   </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- ═══ TOP NAV ═══ -->
+  <!-- NAV -->
   <nav class="nav">
-
-    <!-- RIGHT cluster (first child in RTL = visual right) -->
     <div class="nav__right">
       <div class="nav__profile">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 12c2.6 0 4.7-2.1 4.7-4.7S14.6 2.6 12 2.6 7.3 4.7 7.3 7.3 9.4 12 12 12zm0 2.4c-3.2 0-9.4 1.6-9.4 4.7v2.3h18.8v-2.3c0-3.1-6.2-4.7-9.4-4.7z"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.6 0 4.7-2.1 4.7-4.7S14.6 2.6 12 2.6 7.3 4.7 7.3 7.3 9.4 12 12 12zm0 2.4c-3.2 0-9.4 1.6-9.4 4.7v2.3h18.8v-2.3c0-3.1-6.2-4.7-9.4-4.7z"/></svg>
       </div>
-
-      <!-- Bell -->
       <div class="nav__bell-wrap">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V11c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V11c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
         <div class="nav__bell-badge">1</div>
       </div>
     </div>
 
-    <!-- tooltip anchored to the nav (not the bell wrapper) -->
     <div class="nav__tooltip">יש לך הודעות חדשות</div>
 
-    <!-- Divider -->
     <div class="nav__divider"></div>
 
-    <!-- CENTER: greeting + IDF logo -->
     <div class="nav__center">
-      <!-- RTL: first child → visual right, second → visual left -->
-      <span class="nav__greeting">בוקר טוב ידידיה</span>
-      <!-- IDF Tzahal emblem (gold) -->
-      <svg class="idf-logo" viewBox="0 0 56 66" xmlns="http://www.w3.org/2000/svg">
-        <g fill="none" stroke="#C6A000" stroke-linecap="round" stroke-linejoin="round">
-          <!-- Sword blade -->
-          <line x1="28" y1="4" x2="28" y2="56" stroke-width="3" stroke="#C6A000"/>
-          <!-- Crossguard -->
-          <line x1="20" y1="15" x2="36" y2="15" stroke-width="2.5"/>
-          <!-- Sword tip triangle -->
-          <polyline points="24,4 28,0 32,4" stroke-width="2" fill="#C6A000"/>
-          <!-- Left olive branch stems -->
-          <path d="M28,22 Q20,26 15,33" stroke-width="2"/>
-          <path d="M28,30 Q19,33 15,41" stroke-width="1.8"/>
-          <path d="M28,38 Q21,40 18,48" stroke-width="1.6"/>
-          <!-- Left leaves -->
-          <ellipse cx="14" cy="33" rx="4.5" ry="2.2" transform="rotate(-40 14 33)" fill="#C6A000" stroke="none"/>
-          <ellipse cx="13" cy="41" rx="4.5" ry="2.2" transform="rotate(-30 13 41)" fill="#C6A000" stroke="none"/>
-          <ellipse cx="16" cy="48" rx="4" ry="2" transform="rotate(-20 16 48)" fill="#C6A000" stroke="none"/>
-          <!-- Right olive branch stems -->
-          <path d="M28,22 Q36,26 41,33" stroke-width="2"/>
-          <path d="M28,30 Q37,33 41,41" stroke-width="1.8"/>
-          <path d="M28,38 Q35,40 38,48" stroke-width="1.6"/>
-          <!-- Right leaves -->
-          <ellipse cx="42" cy="33" rx="4.5" ry="2.2" transform="rotate(40 42 33)" fill="#C6A000" stroke="none"/>
-          <ellipse cx="43" cy="41" rx="4.5" ry="2.2" transform="rotate(30 43 41)" fill="#C6A000" stroke="none"/>
-          <ellipse cx="40" cy="48" rx="4" ry="2" transform="rotate(20 40 48)" fill="#C6A000" stroke="none"/>
-          <!-- Star of David (simplified) -->
-          <polygon points="28,18 32,25 24,25" stroke-width="1.5" fill="none"/>
-          <polygon points="28,30 32,23 24,23" stroke-width="1.5" fill="none"/>
+      <!-- IDF logo FIRST → visual right in RTL (next to divider) -->
+      <svg class="idf-logo" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#C6A000">
+          <polygon points="38,8 42,8 43,58 37,58"/>
+          <polygon points="37,8 40,2 43,8"/>
+          <rect x="28" y="20" width="24" height="4" rx="2"/>
+          <ellipse cx="40" cy="62" rx="5" ry="4"/>
+          <ellipse cx="29" cy="34" rx="6" ry="3" transform="rotate(-50 29 34)"/>
+          <ellipse cx="24" cy="44" rx="6" ry="3" transform="rotate(-40 24 44)"/>
+          <ellipse cx="22" cy="54" rx="5.5" ry="2.8" transform="rotate(-25 22 54)"/>
+          <path d="M37,30 Q30,33 26,40" fill="none" stroke="#C6A000" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M37,40 Q29,42 24,50" fill="none" stroke="#C6A000" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M37,50 Q29,52 23,58" fill="none" stroke="#C6A000" stroke-width="1.5" stroke-linecap="round"/>
+          <ellipse cx="51" cy="34" rx="6" ry="3" transform="rotate(50 51 34)"/>
+          <ellipse cx="56" cy="44" rx="6" ry="3" transform="rotate(40 56 44)"/>
+          <ellipse cx="58" cy="54" rx="5.5" ry="2.8" transform="rotate(25 58 54)"/>
+          <path d="M43,30 Q50,33 54,40" fill="none" stroke="#C6A000" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M43,40 Q51,42 56,50" fill="none" stroke="#C6A000" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M43,50 Q51,52 57,58" fill="none" stroke="#C6A000" stroke-width="1.5" stroke-linecap="round"/>
         </g>
-        <!-- Sword pommel -->
-        <circle cx="28" cy="56" r="3.5" fill="#C6A000"/>
       </svg>
+      <!-- greeting SECOND → visual left in RTL -->
+      <span class="nav__greeting">בוקר טוב ידידיה</span>
     </div>
 
-    <!-- LEFT: hamburger (last child in RTL = visual left) -->
     <div class="nav__hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </div>
-
   </nav>
 
-  <!-- ═══ GREEN HERO ═══ -->
+  <!-- HERO -->
   <section class="hero">
     <h1 class="hero__title">הזימונים שלי</h1>
     <div class="hero__dots">
-      <span class="active"></span>
-      <span></span>
+      <span class="active"></span><span></span>
     </div>
 
-    <!-- Appointment Card -->
     <div class="card">
       <div class="card__top">
-
-        <!-- RED BUTTON — first child → visual RIGHT ✓ -->
+        <!-- first → visual RIGHT in RTL -->
         <button class="card__prev-btn">זימון קודם</button>
-
-        <!-- STATUS — second child → visual LEFT ✓ -->
+        <!-- second → visual LEFT in RTL -->
         <div class="card__status">
-          <!-- RTL: kebab first → visual right of the status group -->
-          <div class="card__kebab">
-            <span></span><span></span><span></span>
-          </div>
+          <div class="card__kebab"><span></span><span></span><span></span></div>
           <span class="card__status-label">מתקיים כעת</span>
           <div class="card__check">
             <svg viewBox="0 0 12 10"><polyline points="1,5 4.5,8.5 11,1.5"/></svg>
           </div>
         </div>
-
       </div>
 
       <div class="card__body">
         <div class="card__title">
           תעסוקה מבצעית בצו 8<span class="sep">|</span>116 ימים
         </div>
-
-        <!-- Date row: text first (visual right), icon second (visual left) ✓ -->
         <div class="card__meta">
-          <span class="card__meta-text">29.06.25 – 22.10.25</span>
-          <svg class="card__meta-icon" viewBox="0 0 24 24" fill="none"
-               stroke="#555" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
+          <span class="card__meta-text">29.06.25 - 22.10.25</span>
+          <svg class="card__meta-icon" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8">
             <rect x="3" y="4" width="18" height="18" rx="2"/>
             <line x1="16" y1="2" x2="16" y2="6"/>
             <line x1="8"  y1="2" x2="8"  y2="6"/>
             <line x1="3"  y1="10" x2="21" y2="10"/>
           </svg>
         </div>
-
-        <!-- Location row -->
         <div class="card__meta">
-          <span class="card__meta-text">רחובות – מחנה ליפקין</span>
-          <svg class="card__meta-icon" viewBox="0 0 24 24" fill="none"
-               stroke="#555" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
+          <span class="card__meta-text">רחובות - מחנה ליפקין</span>
+          <svg class="card__meta-icon" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8">
             <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
             <circle cx="12" cy="10" r="3"/>
           </svg>
         </div>
       </div>
 
-      <!-- Action buttons: RTL grid → first cell = visual right ✓ -->
       <div class="card__actions">
-        <button class="card__action card__action--yellow">בקשות מיוחדות</button>
-        <button class="card__action card__action--white">החזרי נסיעות</button>
+        <!-- RTL grid: first → visual right (white), second → visual left (yellow) -->
+        <button class="card__action card__action--white">בקשות מיוחדות</button>
+        <button class="card__action card__action--yellow">החזרי נסיעות</button>
       </div>
     </div>
   </section>
 
-  <!-- ═══ LOWER SECTION ═══ -->
+  <!-- SECTION -->
   <section class="section">
     <div class="section__header">
-
-      <!-- TITLE BLOCK — first child → visual RIGHT ✓ -->
+      <!-- first → visual RIGHT in RTL -->
       <div class="section__title-block">
         <span class="section__title">פניות ובקשות</span>
         <div class="section__underline"></div>
       </div>
-
-      <!-- NEW BTN — second child → visual LEFT ✓ -->
+      <!-- second → visual LEFT in RTL -->
       <button class="section__new-btn">
         <span class="plus">+</span>
         <span>בקשה חדשה</span>
       </button>
-
     </div>
 
-    <!-- Item -->
     <div class="item">
-      <div class="item__meta">עדכון אחרון:&nbsp;<strong>02.04.25</strong></div>
-      <div class="item__title">שפ"א – פרטי חשרוו רוה</div>
+      <div class="item__meta">עדכון אחרון: <strong>02.04.25</strong></div>
+      <div class="item__title">שפ"א - פרטי חשרוו רוה</div>
     </div>
   </section>
 
